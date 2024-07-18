@@ -1,7 +1,7 @@
 {
   "name": "message-manager",
   "private": true,
-  "homepage": "https://bryantt23.github.io/odin-email-inventory-reactjs",
+  "homepage": "https://bryantt23.github.io/odin-email-inventory-reactjs/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
