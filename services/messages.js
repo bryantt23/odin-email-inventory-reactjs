@@ -1,9 +1,12 @@
+import { setLocalStorageItem } from "../utils/localStorage";
 import api from "./axiosConfig";
 
 export const getMessages = async () => {
     try {
         const res = await api.get('/messages')
-        return res.data.messages
+        const { messages } = res.data
+        setLocalStorageItem('messages', messages)
+        return messages
     } catch (error) {
         console.error('Error fetching messages:', error);
         throw error

@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
-import { login } from '../services/login'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import CreateMessage from './components/CreateMessage'
 import Login from './components/Login'

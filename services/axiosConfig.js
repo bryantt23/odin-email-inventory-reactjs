@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { getToken, removeToken } from '../utils/token'
-import { useNavigate } from 'react-router-dom'
+import { getLocalStorageItem, removeLocalStorageItem } from '../utils/localStorage'
 
 const api = axios.create({
     baseURL: 'http://localhost:3000/api',
@@ -11,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const token = getToken()
+        const token = getLocalStorageItem('token')
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`
         }
@@ -30,7 +29,8 @@ api.interceptors.response.use(
             originalRequest._retry = true
 
             // If no refresh token logic, clear the token and redirect to login
-            removeToken()
+            removeLocalStorageItem('token')
+            removeLocalStorageItem('messages')
             window.location.href = '/.login'
         }
         return Promise.reject(error)

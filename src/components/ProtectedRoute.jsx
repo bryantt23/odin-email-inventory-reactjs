@@ -1,9 +1,9 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import { getToken } from '../../utils/token'
+import { getLocalStorageItem } from '../../utils/localStorage'
 
 const ProtectedRoute = () => {
-    const token = getToken()
+    const token = getLocalStorageItem('token')
 
     return token ? <Outlet /> : <Navigate to="/login" />
 }
