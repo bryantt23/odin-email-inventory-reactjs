@@ -18,8 +18,7 @@ function MessageList() {
 
     useEffect(() => {
         async function fetchData() {
-            const res = await getMessages()
-            setMessagesFromApi(res)
+            await getMessages(setMessagesFromApi)
         }
         fetchData()
     }, [messagesHaveChanged])

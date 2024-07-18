@@ -1,11 +1,23 @@
-import { setLocalStorageItem } from "../utils/localStorage";
+import { getLocalStorageItem, setLocalStorageItem } from "../utils/localStorage";
 import api from "./axiosConfig";
 
-export const getMessages = async () => {
+export const getMessages = async (updateStateCallback) => {
+    // Step 1: Check local storage for messages
+    const cachedMessages = JSON.parse(getLocalStorageItem('messages'))
+    if (cachedMessages) {
+        // Return cached messages immediately
+        updateStateCallback(cachedMessages)
+    }
+
+    // Step 2: Fetch from API and update local storage
     try {
         const res = await api.get('/messages')
         const { messages } = res.data
-        setLocalStorageItem('messages', messages)
+        setLocalStorageItem('messages', JSON.stringify(messages))
+
+        // Update state with the new messages from the API
+        updateStateCallback(messages)
+
         return messages
     } catch (error) {
         console.error('Error fetching messages:', error);
