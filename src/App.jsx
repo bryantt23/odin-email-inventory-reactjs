@@ -9,30 +9,15 @@ import ProtectedRoute from './components/ProtectedRoute'
 import UpdateMessage from './components/UpdateMessage'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const navigate = useNavigate()
-
-  const handleLogin = async (password) => {
-    try {
-      const res = await login(password)
-      if (res.isAuthenticated) {
-        setIsLoggedIn(true)
-        navigate('/messages')
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   return (
     <Routes>
-      <Route path="/login" element={<Login handleLogin={handleLogin} />} />
-      <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+      <Route path="/login" element={<Login />} />
+      <Route element={<ProtectedRoute />}>
         <Route path="/messages" element={<MessageList />} />
         <Route path="/messages/create" element={<CreateMessage />} />
         <Route path="/messages/:id/update" element={<UpdateMessage />} />
       </Route>
-      <Route path="*" element={<Navigate to={isLoggedIn ? "/message" : "/login"} replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )
 }

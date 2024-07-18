@@ -1,8 +1,11 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import { getToken } from '../../utils/token'
 
-const ProtectedRoute = ({ isLoggedIn }) => {
-    return isLoggedIn ? <Outlet /> : <Navigate to="/login" />
+const ProtectedRoute = () => {
+    const token = getToken()
+
+    return token ? <Outlet /> : <Navigate to="/login" />
 }
 
 export default ProtectedRoute

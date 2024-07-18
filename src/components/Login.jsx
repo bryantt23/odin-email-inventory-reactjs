@@ -1,11 +1,21 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/login';
 
-function Login({ handleLogin }) {
+function Login() {
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        await handleLogin(password)
+        try {
+            const res = await login(password)
+            if (res.isAuthenticated) {
+                navigate('/messages')
+            }
+        } catch (error) {
+            console.error('Login error', error);
+        }
     }
 
     return (
@@ -14,7 +24,7 @@ function Login({ handleLogin }) {
             <p>Welcome</p>
             <p>Log in to see the messages</p>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
                 <input
                     type="password"
                     name="password"
