@@ -58,9 +58,10 @@ function MessageList() {
                     onChange={(e) => setSelectedOption(e.target.value)}
                     value={selectedOption}
                 >
-                    <option value="tinder">Tinder</option>
-                    <option value="job">Job</option>
                     <option value="all">All Messages</option>
+                    <option value="job">Job</option>
+                    <option value="tinder">Social</option>
+                    <option value="studio">Studio</option>
                 </select>
 
                 <label>
